@@ -161,8 +161,8 @@ export class LoginComponent implements OnInit {
    */
   guestLogIn() {
     this.errorMessage = false;
-    const email = 'guestuser@gmail.com';
-    const password = '1234567890';
+    const email = 'guest@test.de';
+    const password = '123456789';
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -185,9 +185,9 @@ export class LoginComponent implements OnInit {
         const user = userCredential.user;
         this.showSuccessAnimation('/dashboard');
       })
-      .catch((error) => {
+     /*  .catch((error) => {
         console.log(error);
-      });
+      }); */
   }
 
   /**
