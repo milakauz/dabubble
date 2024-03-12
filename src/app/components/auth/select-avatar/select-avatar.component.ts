@@ -114,7 +114,7 @@ export class SelectAvatarComponent {
         let avatar = this.personImg.split('../../')[1];
 
         if (this.user) {
-          this.user.avatar = `https://gruppe-873.developerakademie.net/angular-projects/dabubble/${avatar}`;
+          this.user.avatar = `https://dabubble.selinakarlin.de/${avatar}`;
           await this.saveToFirestore();
 
           this.signOutUser();
@@ -180,7 +180,7 @@ export class SelectAvatarComponent {
     let avatar = this.personImg.split('../../')[1];
 
     if (this.user) {
-      this.user.avatar = `https://gruppe-873.developerakademie.net/angular-projects/dabubble/${avatar}`;
+      this.user.avatar = `https://dabubble.selinakarlin.de/${avatar}`;
     }
   }
 
