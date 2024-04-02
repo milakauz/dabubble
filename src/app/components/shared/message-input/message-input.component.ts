@@ -588,15 +588,6 @@ export class MessageInputComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {});
   }
 
-  openImagePreviewDialog(imageUrl: string): void {
-    const dialogRef = this.dialog.open(ImagePreviewComponent, {
-      width: 'auto',
-      data: { imageUrl: imageUrl }, // Pass the image URL to the dialog
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {});
-  }
-
   /**
    * Uploads the selected image file to Firebase storage and updates the `uploadedFile` URL for message attachment.
    */
