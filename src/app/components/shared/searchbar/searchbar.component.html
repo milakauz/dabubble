@@ -92,7 +92,7 @@
       <h2>Mitglieder</h2>
       <ul>
         <li
-          *ngFor="let user of copyOfUsers"
+          *ngFor="let user of filteredUsersList"
           (click)="selectUser(user.fullName)"
         >
           <img
@@ -108,7 +108,7 @@
       <h2>Channels</h2>
       <ul>
         <li
-          *ngFor="let channel of copyOfChannels"
+          *ngFor="let channel of filteredChannelsList"
           (click)="selectChannel(channel.name)"
         >
           <p># {{ channel.name }}</p>

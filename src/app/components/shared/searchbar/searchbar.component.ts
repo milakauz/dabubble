@@ -304,11 +304,12 @@ export class SearchbarComponent implements AfterViewInit, OnInit, OnDestroy {
    * Triggers a search operation based on the input value in the search bar if global search is enabled.
    */
   search() {
-    if (this.globalSearch) {
-      const inputValue = this.searchbarInput.nativeElement.value;
-      this.isSearchbarEmpty = inputValue.length === 0;
-      this.checkInputAndSyncArraysMessages(inputValue);
+    if (!this.globalSearch) {
+      return;
     }
+    const inputValue = this.searchbarInput.nativeElement.value;
+    this.isSearchbarEmpty = inputValue.length === 0;
+    this.checkInputAndSyncArraysMessages(inputValue);
   }
 
   /**
@@ -458,31 +459,45 @@ export class SearchbarComponent implements AfterViewInit, OnInit, OnDestroy {
     if (this.comesFrom === 'dashboard' || this.comesFrom === 'mobileView') {
       this.globalSearch = true;
     }
+    if (event.target.value === '') {
+      this.resetSearchVariables();
+    }
     this.getData();
     this.search();
     if (this.comesFrom !== 'dashboard') {
       const values = event.target.value.split(' ');
       values.forEach((value: string) => {
-        if (value === '@' && this.users.length > 0) {
+        if (value.startsWith('@')) {
           this.usersSearch = true;
-          this.globalSearch = true;
-        } else {
-          this.usersSearch = false;
-        }
-
-        if (value === '#' && this.channels.length > 0) {
+          const userNameQuery = value.slice(1);
+          if (userNameQuery.length > 0) {
+            this.filteredUsersList = this.copyOfUsers.filter((user) =>
+              user.fullName.toLowerCase().includes(userNameQuery.toLowerCase())
+            );
+            this.usersSearch = this.filteredUsersList.length > 0;
+          }
+        } else if (value.startsWith('#')) {
           this.channelSearch = true;
-          this.globalSearch = true;
-        } else {
-          this.channelSearch = false;
+          const channelNameQuery = value.slice(1); // Entfernt das '#'
+          if (channelNameQuery.length > 0) {
+            this.filteredChannelsList = this.copyOfChannels.filter((channel) =>
+              channel.name
+                .toLowerCase()
+                .includes(channelNameQuery.toLowerCase())
+            );
+            this.channelSearch = this.filteredChannelsList.length > 0;
+          }
         }
       });
     }
-    if (event.target.value === '') {
-      this.usersSearch = false;
-      this.channelSearch = false;
-      this.globalSearch = false;
-    }
+  }
+
+  resetSearchVariables() {
+    this.usersSearch = false;
+    this.channelSearch = false;
+    this.globalSearch = false;
+    this.filteredUsersList = [];
+    this.filteredChannelsList = [];
   }
 
   /**
