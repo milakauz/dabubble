@@ -112,6 +112,8 @@ export class WorkspaceComponent implements OnInit {
     this.sharedService.triggerShowUsers.subscribe(() => {
       this.openDirectMsgs('');
     });
+
+    this.getChannels();
   }
 
   async openDirectMsgs(fromTrigger?: string) {
@@ -162,6 +164,10 @@ export class WorkspaceComponent implements OnInit {
    */
   openChannels() {
     this.channelHeight = !this.channelHeight;
+    this.showChannels = !this.showChannels;
+  }
+
+  async getChannels(){
     try {
       const channelsCollection = collection(this.firestore, 'channels');
       this.unsubscribeSnapshot = onSnapshot(
@@ -178,10 +184,11 @@ export class WorkspaceComponent implements OnInit {
           console.error('Error fetching channels:', error);
         }
       );
-    } catch (error) {
+    }catch (error) {
       console.error('Error fetching channels:', error);
+    } finally {
+      this.openChannels()
     }
-    this.showChannels = !this.showChannels;
   }
 
   /**
