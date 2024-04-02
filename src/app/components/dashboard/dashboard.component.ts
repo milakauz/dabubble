@@ -73,6 +73,7 @@ export class DashboardComponent implements OnInit {
     this.checkWindowSize();
     this.subscribeChannelStatus();
     this.subscribeNewMessageStatus();
+    this.writeNewMessage = true;
   }
 
   private checkWindowSize(): void {
