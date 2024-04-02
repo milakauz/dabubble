@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   MatDialog,
   MatDialogModule,
@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FirebaseService } from '../../../../services/firebase.service';
 import e from 'express';
+import { User } from '../../../../models/user.class';
 
 @Component({
   selector: 'app-create-channel',
@@ -35,6 +36,7 @@ export class CreateChannelComponent {
   placeholderDescription: string = 'Dein Text hier';
   inputCheck: boolean = false;
   channelExist: boolean = false;
+  loggedUser!: User;
 
   constructor(
     private dataService: DataService,
